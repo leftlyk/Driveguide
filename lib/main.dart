@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() => runApp(MaterialApp(
   home: Home(),
@@ -13,7 +14,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  int userLevel = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +29,6 @@ class _HomeState extends State<Home> {
         ),
         backgroundColor: Colors.white,
         elevation: 0.0,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            userLevel += 1;
-          });
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.grey[800],
       ),
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

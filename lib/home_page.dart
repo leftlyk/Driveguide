@@ -58,24 +58,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-   /* final LocationSettings locationSettings = LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 100,
-    );
-    StreamSubscription<Position> positionStream = Geolocator.getPositionStream(locationSettings: locationSettings).listen(
-        (Position? position) {
-          print(position == null ? 'Unknown' : '${position.latitude.toString()}, ${position.longitude.toString()}');
-          if(position == null) {
-            lat = "UNKNOWN";
-            ltd = "UNKNOWN";
-          } else {
-            print("Lat:" + lat);
-            print("Lon:" + ltd);
-            lat = position.latitude.toString();
-            ltd = position.longitude.toString();
-          }
-
-        });
-    double bearing = Geolocator.bearingBetween(0, 0, 10, 5);
-*/
     return Scaffold(
       appBar: AppBar(
         title: Text('Location'),
@@ -85,9 +67,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-          //  if (positionStream != null) Text(
         Text(
-              //"LAT: ${_determinePosition().latitude}, LNG: ${_determinePosition().longitude}"
               "LAT: ${lat} LONG: ${ltd}"
 
                 //"VALUES"
@@ -95,10 +75,9 @@ class _HomePageState extends State<HomePage> {
             TextButton(
               child: Text('Get Location'),
               onPressed: () {
-                //Position? position = await Geolocator.getLastKnownPosition();
                 _getCurrentLocation();
+                _getLocationProximity();
 
-                //_determinePosition();
 
               },
             ),
@@ -123,8 +102,8 @@ class _HomePageState extends State<HomePage> {
         //  print(_currentPosition.longitude.toString());
         //  print(_currentPosition.latitude.toString());
         } else {
-          ltd = position.latitude.toString();
-          lat = position.longitude.toString();
+          lat = position.latitude.toString();
+          ltd = position.longitude.toString();
         }
 
       });
@@ -133,59 +112,20 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-}
+  _getLocationProximity() {
 
+    var latNum = double.parse(lat), ltdNum = double.parse(ltd);
 
+    if((latNum >= -44 && latNum <= -42)
+    && (ltdNum >= 172 && ltdNum <= 173)
+    ) {
+      print("You're within proximity of CBHS!");
 
-/*import 'package:geolocator/geolocator.dart';
-
-//Position _currentPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
-class HomePage extends StatefulWidget {
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  Position _currentPosition;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Location'),
-
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            if (_currentPosition != null) Text(
-                "LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}"
-            ),
-            FlatButton(
-              child: Text('Get Location'),
-              onPressed: () {
-                _getCurrentLocation();
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  _getCurrentLocation() {
-    Geolocator
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best, forceAndroidLocationManager: true)
-        .then((Position position) {
-      setState(() {
-        _currentPosition = position;
-      });
-    }).catchError((e) {
-      print(e);
-    });
+    } else {
+      print("You ain't close bruh.");
+    }
   }
 
 }
-*/
+
+

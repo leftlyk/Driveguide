@@ -1,5 +1,145 @@
+
 import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:geolocator/geolocator.dart';
+
+/// Determine the current position of the device.
+///
+/// When the location services are not enabled or permissions
+/// are denied the `Future` will return an error.
+Future<Position> _determinePosition() async {
+  bool serviceEnabled;
+  LocationPermission permission;
+
+  // Test if location services are enabled.
+  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    // Location services are not enabled don't continue
+    // accessing the position and request users of the
+    // App to enable the location services.
+    return Future.error('Location services are disabled.');
+  }
+
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    if (permission == LocationPermission.denied) {
+      // Permissions are denied, next time you could try
+      // requesting permissions again (this is also where
+      // Android's shouldShowRequestPermissionRationale
+      // returned true. According to Android guidelines
+      // your App should show an explanatory UI now.
+      return Future.error(
+          'Location permissions are denied');
+    }
+  }
+
+  // When we reach here, permissions are granted and we can
+  // continue accessing the position of the device.
+  return await Geolocator.getCurrentPosition();
+}
+
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Position? _currentPosition;
+  String lat = "X2", ltd = "Y2";
+
+  @override
+  Widget build(BuildContext context) {
+
+   /* final LocationSettings locationSettings = LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 100,
+    );
+    StreamSubscription<Position> positionStream = Geolocator.getPositionStream(locationSettings: locationSettings).listen(
+        (Position? position) {
+          print(position == null ? 'Unknown' : '${position.latitude.toString()}, ${position.longitude.toString()}');
+          if(position == null) {
+            lat = "UNKNOWN";
+            ltd = "UNKNOWN";
+          } else {
+            print("Lat:" + lat);
+            print("Lon:" + ltd);
+            lat = position.latitude.toString();
+            ltd = position.longitude.toString();
+          }
+
+        });
+    double bearing = Geolocator.bearingBetween(0, 0, 10, 5);
+*/
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Location'),
+
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+          //  if (positionStream != null) Text(
+        Text(
+              //"LAT: ${_determinePosition().latitude}, LNG: ${_determinePosition().longitude}"
+              "LAT: ${lat} LONG: ${ltd}"
+
+                //"VALUES"
+            ),
+            TextButton(
+              child: Text('Get Location'),
+              onPressed: () {
+                //Position? position = await Geolocator.getLastKnownPosition();
+                _getCurrentLocation();
+
+                //_determinePosition();
+
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _getCurrentLocation() {
+    Geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best, forceAndroidLocationManager: true)
+        .then((Position position) {
+      setState(() {
+
+
+        print(position == null ? 'Unknown' : '${position.latitude.toString()}, ${position.longitude.toString()}');
+
+        if(position == null) {
+          lat = "UNKNOWN";
+          ltd = "UNKNOWN";
+        //  print(_currentPosition.longitude.toString());
+        //  print(_currentPosition.latitude.toString());
+        } else {
+          ltd = position.latitude.toString();
+          lat = position.longitude.toString();
+        }
+
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+}
+
+
+
+/*import 'package:geolocator/geolocator.dart';
+
+//Position _currentPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
 class HomePage extends StatefulWidget {
   @override
@@ -48,3 +188,4 @@ class _HomePageState extends State<HomePage> {
   }
 
 }
+*/

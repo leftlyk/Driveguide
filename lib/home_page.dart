@@ -55,6 +55,7 @@ class _HomePageState extends State<HomePage> {
   Position? _currentPosition;
   String lat = "X2", ltd = "Y2";
   String inputLat = "", inputLtd = "";
+  String messageOutput = "";
 
 
   @override
@@ -102,6 +103,10 @@ class _HomePageState extends State<HomePage> {
                 inputLtd = text;
               }),
             ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(messageOutput),
           ],
         ),
       ),
@@ -141,10 +146,10 @@ class _HomePageState extends State<HomePage> {
     if((latNum >= (userLat - 1) && latNum <= (userLat + 1))
     && (ltdNum >= (userLtd - 1) && ltdNum <= (userLtd + 1))
     ) {
-      print("You're within proximity of CBHS!");
+      messageOutput = "You're within proximity of CBHS!";
 
     } else {
-      print("You're not within proximity of CBHS.");
+      messageOutput = "You're not within proximity of CBHS.";
     }
   }
 

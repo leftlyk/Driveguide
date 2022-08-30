@@ -54,6 +54,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Position? _currentPosition;
   String lat = "X2", ltd = "Y2";
+  String inputLat = "", inputLtd = "";
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +82,25 @@ class _HomePageState extends State<HomePage> {
 
 
               },
+            ),
+            TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Enter latitude"),
+              onChanged: (text) => setState(() {
+                inputLat = text;
+              }),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Enter longitude"),
+              onChanged: (text) => setState(() {
+                inputLtd = text;
+              }),
             ),
           ],
         ),
@@ -115,14 +136,15 @@ class _HomePageState extends State<HomePage> {
   _getLocationProximity() {
 
     var latNum = double.parse(lat), ltdNum = double.parse(ltd);
+    var userLat = double.parse(inputLat), userLtd = double.parse(inputLtd);
 
-    if((latNum >= -44 && latNum <= -42)
-    && (ltdNum >= 172 && ltdNum <= 173)
+    if((latNum >= (userLat - 1) && latNum <= (userLat + 1))
+    && (ltdNum >= (userLtd - 1) && ltdNum <= (userLtd + 1))
     ) {
       print("You're within proximity of CBHS!");
 
     } else {
-      print("You ain't close bruh.");
+      print("You're not within proximity of CBHS.");
     }
   }
 

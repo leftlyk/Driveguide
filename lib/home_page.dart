@@ -51,15 +51,66 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+class Record{
+  double latitude = 0;
+  double longitude = 0;
+  String description = "No entry";
+
+  Record(double l,double t, String d) {
+    latitude = l;
+    longitude = t;
+    description = d;
+  }
+
+}
+
 class _HomePageState extends State<HomePage> {
+
+
+  List locationList = [];
+  //var locationList = new List.generate(0, (index) => null);
+
+
+
+ /* Record tempLocation1 = Record(-43,172,"Hi");
+  Record tempLocation[2] = Record(-43,172,"Hi");
+  Record tempLocation[3] = Record(-43,172,"Hi");
+*/
+
   Position? _currentPosition;
   String lat = "X2", ltd = "Y2";
-  String inputLat = "", inputLtd = "";
+  //String inputLat = "", inputLtd = "";
   String messageOutput = "";
 
+  void BuildRecords() {
+    //tempLocation.latitude = 50;
+    Record temp = Record(-43,272,"Hi");
+    locationList.add(temp);
+
+    temp = Record(-43,172,"Option 2");
+    locationList.add(temp);
+  }
+
+  Record findLocation(double latNum, double ltdNum) {
+      Record r = Record(0,0, "UNKNOWN");
+
+      for (Record value in locationList) {
+        if((latNum >= (value.latitude - 1) && latNum <= (value.latitude + 1))
+            && (ltdNum >= (value.longitude - 1) && ltdNum <= (value.longitude + 1))
+        ) {
+          return value;
+
+        }
+
+      }
+
+      return r;
+  }
 
   @override
   Widget build(BuildContext context) {
+
+  BuildRecords();
 
     return Scaffold(
       appBar: AppBar(
@@ -84,6 +135,7 @@ class _HomePageState extends State<HomePage> {
 
               },
             ),
+            /*
             TextField(
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -106,6 +158,8 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 20,
             ),
+
+             */
             Text(messageOutput),
           ],
         ),
@@ -141,16 +195,26 @@ class _HomePageState extends State<HomePage> {
   _getLocationProximity() {
 
     var latNum = double.parse(lat), ltdNum = double.parse(ltd);
-    var userLat = double.parse(inputLat), userLtd = double.parse(inputLtd);
+    //var userLat = double.parse(inputLat), userLtd = double.parse(inputLtd);
 
+    Record location = findLocation(latNum, ltdNum);
+
+    messageOutput = location.description;
+
+    // Go through the list of records and find one that lat and long match
+    //var userLat = location.latitude, userLtd = location.longitude;
+
+    /*
     if((latNum >= (userLat - 1) && latNum <= (userLat + 1))
     && (ltdNum >= (userLtd - 1) && ltdNum <= (userLtd + 1))
     ) {
-      messageOutput = "You're within proximity of CBHS!";
+      messageOutput = location.description;
 
     } else {
       messageOutput = "You're not within proximity of CBHS.";
     }
+
+     */
   }
 
 }

@@ -128,41 +128,63 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
 
       ),
-      body: Center(
-        child: Column(
+      body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-        Text(
-              "LAT: ${lat} \nLONG: ${ltd}",
-            style: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 30)
-            ),
-            SizedBox(height: 20.0),
-            TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        Container(
+          margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
+          child: Text(
+                "LAT: ${lat} \nLONG: ${ltd}",
+              style: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30)
               ),
-              child: Text('Get Location'),
-              onPressed: () {
-                _getCurrentLocation();
-                _getLocationProximity();
+        ),
 
-
-              },
-            ),
             SizedBox(height: 20.0),
 
-            Text(messageOutput,
-                style: TextStyle(
-                color: Colors.black87,
+            Container(
+              margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
+              //color: Colors.red,
+              child: Text('Christchurch Tour', style: TextStyle(
+                fontSize: 40.0,
                 fontWeight: FontWeight.bold,
-                fontSize: 30)
+              ),
+              ),
+            ),
+
+            SizedBox(height: 20.0),
+
+            Container(
+              margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
+              child: TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
+                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  ),
+                  child: Text('Get Location'),
+                  onPressed: () {
+                    _getCurrentLocation();
+                    _getLocationProximity();
+                  },
+
+              ),
+            ),
+
+            SizedBox(height: 20.0),
+
+            Container(
+              margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
+              child: Text(messageOutput,
+                  style: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30)
+              ),
             ),
           ],
-        ),
       ),
     );
   }

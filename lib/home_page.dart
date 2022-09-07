@@ -68,14 +68,16 @@ class _HomePageState extends State<HomePage> {
 
 
   List locationList = [];
-  //var locationList = new List.generate(0, (index) => null);
 
+  double accuracyNum = 0.0001;
 
-
- /* Record tempLocation1 = Record(-43,172,"Hi");
-  Record tempLocation[2] = Record(-43,172,"Hi");
-  Record tempLocation[3] = Record(-43,172,"Hi");
-*/
+  /// decimal places  degrees	    distance
+  ///       0	          1.0	       111 km
+  ///       1	          0.1	       11.1 km
+  ///       2	          0.01	     1.11 km
+  ///       3	          0.001	     111 m
+  ///       4	          0.0001	   11.1 m
+  ///       5	          0.00001	   1.11 m
 
   Position? _currentPosition;
   String lat = "X2", ltd = "Y2";
@@ -87,16 +89,18 @@ class _HomePageState extends State<HomePage> {
     Record temp = Record(-43,272,"Hi");
     locationList.add(temp);
 
-    temp = Record(-43,172,"Option 2");
+    temp = Record(-43.5246, 172.60025, "cbhs desc");
     locationList.add(temp);
   }
 
   Record findLocation(double latNum, double ltdNum) {
       Record r = Record(0,0, "UNKNOWN");
 
+      /// Go through the list of records and find one that lat and long match
+
       for (Record value in locationList) {
-        if((latNum >= (value.latitude - 1) && latNum <= (value.latitude + 1))
-            && (ltdNum >= (value.longitude - 1) && ltdNum <= (value.longitude + 1))
+        if((latNum >= (value.latitude - accuracyNum) && latNum <= (value.latitude + accuracyNum))
+            && (ltdNum >= (value.longitude - accuracyNum) && ltdNum <= (value.longitude + accuracyNum))
         ) {
           return value;
 
@@ -114,7 +118,14 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Location'),
+        title: Text('Driveguide',
+            style: TextStyle(
+            color: Colors.black87,
+            fontWeight: FontWeight.bold,
+            fontSize: 30)
+        ),
+
+        backgroundColor: Colors.white,
 
       ),
       body: Center(
@@ -122,11 +133,18 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
         Text(
-              "LAT: ${lat} LONG: ${ltd}"
-
-                //"VALUES"
+              "LAT: ${lat} \nLONG: ${ltd}",
+            style: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                fontSize: 30)
             ),
+            SizedBox(height: 20.0),
             TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+              ),
               child: Text('Get Location'),
               onPressed: () {
                 _getCurrentLocation();
@@ -135,32 +153,14 @@ class _HomePageState extends State<HomePage> {
 
               },
             ),
-            /*
-            TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Enter latitude"),
-              onChanged: (text) => setState(() {
-                inputLat = text;
-              }),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Enter longitude"),
-              onChanged: (text) => setState(() {
-                inputLtd = text;
-              }),
-            ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20.0),
 
-             */
-            Text(messageOutput),
+            Text(messageOutput,
+                style: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                fontSize: 30)
+            ),
           ],
         ),
       ),
@@ -182,8 +182,12 @@ class _HomePageState extends State<HomePage> {
         //  print(_currentPosition.longitude.toString());
         //  print(_currentPosition.latitude.toString());
         } else {
-          lat = position.latitude.toString();
-          ltd = position.longitude.toString();
+          //lat = position.latitude.toString();
+          //ltd = position.longitude.toString();
+
+          lat = position.latitude.toStringAsFixed(4);
+          ltd = position.longitude.toStringAsFixed(4);
+
         }
 
       });
@@ -193,28 +197,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   _getLocationProximity() {
-
     var latNum = double.parse(lat), ltdNum = double.parse(ltd);
+    /// converts strings to floats and then rounds them to 4 dp
     //var userLat = double.parse(inputLat), userLtd = double.parse(inputLtd);
 
     Record location = findLocation(latNum, ltdNum);
 
     messageOutput = location.description;
 
-    // Go through the list of records and find one that lat and long match
-    //var userLat = location.latitude, userLtd = location.longitude;
 
-    /*
-    if((latNum >= (userLat - 1) && latNum <= (userLat + 1))
-    && (ltdNum >= (userLtd - 1) && ltdNum <= (userLtd + 1))
-    ) {
-      messageOutput = location.description;
-
-    } else {
-      messageOutput = "You're not within proximity of CBHS.";
-    }
-
-     */
   }
 
 }

@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
 
   List locationList = [];
 
-  double accuracyNum = 0.0001;
+  double accuracyNum = 0.0005; ///50 metres
 
   /// decimal places  degrees	    distance
   ///       0	          1.0	       111 km
@@ -90,6 +90,8 @@ class _HomePageState extends State<HomePage> {
     locationList.add(temp);
 
     temp = Record(-43.5246, 172.60025, "cbhs desc");
+    locationList.add(temp);
+    temp = Record(-43.5244, 172.6013, "outside digitech classroom");
     locationList.add(temp);
   }
 
@@ -162,9 +164,13 @@ class _HomePageState extends State<HomePage> {
               child: TextButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
-                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                   ),
-                  child: Text('Get Location'),
+                  child: Text('Get Location',
+                      style: TextStyle(
+                          color: Colors.white60,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20)
+                  ),
                   onPressed: () {
                     _getCurrentLocation();
                     _getLocationProximity();
@@ -179,7 +185,7 @@ class _HomePageState extends State<HomePage> {
               margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
               child: Text(messageOutput,
                   style: TextStyle(
-                  color: Colors.black87,
+                  color: Colors.redAccent,
                   fontWeight: FontWeight.bold,
                   fontSize: 30)
               ),

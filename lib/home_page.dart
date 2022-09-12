@@ -140,6 +140,9 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Image.network(
+              'https://discoverywall.nz/media_cache/2119/2119_highlight.jpg'
+            ),
         Container(
           margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
           child: Text(
@@ -191,11 +194,11 @@ class _HomePageState extends State<HomePage> {
             Container(
               margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
               child: Text(messageOutput,
-                  style: TextStyle(
-                  color: Colors.redAccent,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30)
-              ),
+                    style: TextStyle(
+                        color: Colors.orange,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30)
+                ),
             ),
           ],
       ),

@@ -80,19 +80,26 @@ class _HomePageState extends State<HomePage> {
   ///       5	          0.00001	   1.11 m
 
   Position? _currentPosition;
-  String lat = "X2", ltd = "Y2";
+  String lat = "Press 'get location'", ltd = "Press 'get location'";
   //String inputLat = "", inputLtd = "";
   String messageOutput = "";
+  String buttonText = "Get Location";
 
   void BuildRecords() {
     //tempLocation.latitude = 50;
     Record temp = Record(-43,272,"Hi");
     locationList.add(temp);
+    /// space for test records
 
-    temp = Record(-43.5246, 172.60025, "cbhs desc");
+    ///temp = Record(0,0, "string")
+
+    temp = Record(-43.5243, 172.6011, "The cbhs flagpole");
     locationList.add(temp);
-    temp = Record(-43.5244, 172.6013, "outside digitech classroom");
+
+    temp = Record(-43.5242, 172.6019, "Straven road border");
     locationList.add(temp);
+
+    /// end of space for test records
   }
 
   Record findLocation(double latNum, double ltdNum) {
@@ -126,7 +133,6 @@ class _HomePageState extends State<HomePage> {
             fontWeight: FontWeight.bold,
             fontSize: 30)
         ),
-
         backgroundColor: Colors.white,
 
       ),
@@ -165,13 +171,14 @@ class _HomePageState extends State<HomePage> {
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
                   ),
-                  child: Text('Get Location',
+                  child: Text(buttonText,
                       style: TextStyle(
                           color: Colors.white60,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20)
+                          fontSize: 30)
                   ),
                   onPressed: () {
+                    buttonText = "What's Near Me?";
                     _getCurrentLocation();
                     _getLocationProximity();
                   },

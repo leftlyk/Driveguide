@@ -87,17 +87,26 @@ class _HomePageState extends State<HomePage> {
 
   void BuildRecords() {
     //tempLocation.latitude = 50;
-    Record temp = Record(-43,272,"Hi");
+    Record temp = Record(-43,272,"Sample");
     locationList.add(temp);
     /// space for test records
 
     ///temp = Record(0,0, "string")
 
-    temp = Record(-43.5243, 172.6011, "The cbhs flagpole");
+    temp = Record(-43.5242, 172.6011, "Cbhs Straven Block \n Christchurch Boys' Straven"
+        "block is the home of language and digital technologies, as well as the senior"
+        "management team.");
     locationList.add(temp);
 
-    temp = Record(-43.5242, 172.6019, "Straven road border");
+    temp = Record(-43.5241, 172.6003, "Cbhs Main Building \nLooking ahead, you might miss the "
+        "main building, which is currently under construction and its former glory partly "
+        "concealed.");
     locationList.add(temp);
+
+    temp = Record(-43.5227, 172.6002, "Cbhs Shrine \n Erected in 1920, the shrine comemorates"
+        "the CBHS Old Boys lost in World War One, forever remembering their service.");
+    locationList.add(temp);
+
 
     /// end of space for test records
   }
@@ -159,7 +168,7 @@ class _HomePageState extends State<HomePage> {
             Container(
               margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
               //color: Colors.red,
-              child: Text('Christchurch Tour', style: TextStyle(
+              child: Text("Christchurch Boys'", style: TextStyle(
                 fontSize: 40.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -191,14 +200,18 @@ class _HomePageState extends State<HomePage> {
 
             SizedBox(height: 20.0),
 
-            Container(
-              margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
-              child: Text(messageOutput,
-                    style: TextStyle(
-                        color: Colors.orange,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30)
-                ),
+            Expanded(
+              flex: 1,
+              child: new SingleChildScrollView(
+              scrollDirection: Axis.vertical,//.horizontal
+                padding: EdgeInsets.fromLTRB(5, 5, 0, 10),
+              child: new Text(messageOutput,
+                  style: TextStyle(
+                      color: Colors.orange,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30)
+              ),
+            ),
             ),
           ],
       ),

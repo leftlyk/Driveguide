@@ -54,12 +54,16 @@ class HomePage extends StatefulWidget {
 class Record{
   double latitude = 0;
   double longitude = 0;
+  String title = "No entry";
   String description = "No entry";
+  String imageString = "'PC018007.jpg'";
 
-  Record(double l,double t, String d) {
+  Record(double l,double t, String te, String d, String i) {
     latitude = l;
     longitude = t;
+    title = te;
     description = d;
+    imageString = i;
   }
 
 }
@@ -83,28 +87,30 @@ class _HomePageState extends State<HomePage> {
   String lat = "Press 'get location'", ltd = "Press 'get location'";
   //String inputLat = "", inputLtd = "";
   String messageOutput = "";
+  String titleString = "CBHS Tour";
   String buttonText = "Get Location";
+  String imageLink = "StartingImg.jpg";
 
   void BuildRecords() {
     //tempLocation.latitude = 50;
-    Record temp = Record(-43,272,"Sample");
+    Record temp = Record(-43,272, "title", "Sample", "ShrineImg.jpeg");
     locationList.add(temp);
     /// space for test records
 
-    ///temp = Record(0,0, "string")
+    ///temp = Record(0,0, "string", "image")
 
-    temp = Record(-43.5242, 172.6011, "Cbhs Straven Block \n Christchurch Boys' Straven"
+    temp = Record(-43.5242, 172.6011, "Cbhs Straven Block","Christchurch Boys' Straven"
         "block is the home of language and digital technologies, as well as the senior"
-        "management team.");
+        "management team.", "StravenBlockImg.jpeg");
     locationList.add(temp);
 
-    temp = Record(-43.5241, 172.6003, "Cbhs Main Building \nLooking ahead, you might miss the "
+    temp = Record(-43.5241, 172.6003, "Cbhs Main Building", "Looking ahead, you might miss the "
         "main building, which is currently under construction and its former glory partly "
-        "concealed.");
+        "concealed.", "MainBuildingImg.jpeg");
     locationList.add(temp);
 
-    temp = Record(-43.5227, 172.6002, "Cbhs Shrine \n Erected in 1920, the shrine comemorates"
-        "the CBHS Old Boys lost in World War One, forever remembering their service.");
+    temp = Record(-43.5227, 172.6002, "Cbhs Shrine", "Erected in 1920, the shrine comemorates"
+        "the CBHS Old Boys lost in World War One, forever remembering their service.", "ShrineImg.jpeg");
     locationList.add(temp);
 
 
@@ -112,7 +118,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Record findLocation(double latNum, double ltdNum) {
-      Record r = Record(0,0, "UNKNOWN");
+      Record r = Record(0,0, "TITLE", "UNKNOWN", "");
 
       /// Go through the list of records and find one that lat and long match
 
@@ -149,9 +155,9 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Image.network(
-              'https://discoverywall.nz/media_cache/2119/2119_highlight.jpg'
+            Image.asset('assets/$imageLink' //imageLink
             ),
+            SizedBox(height: 20.0),
         Container(
           margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
           child: Text(
@@ -165,13 +171,25 @@ class _HomePageState extends State<HomePage> {
 
             SizedBox(height: 20.0),
 
+
             Container(
               margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
-              //color: Colors.red,
-              child: Text("Christchurch Boys'", style: TextStyle(
-                fontSize: 40.0,
-                fontWeight: FontWeight.bold,
-              ),
+              child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
+                ),
+                child: Text(buttonText,
+                    style: TextStyle(
+                        color: Colors.white60,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30)
+                ),
+                onPressed: () {
+                  buttonText = "What's Near Me?";
+                  _getCurrentLocation();
+                  _getLocationProximity();
+                },
+
               ),
             ),
 
@@ -179,22 +197,11 @@ class _HomePageState extends State<HomePage> {
 
             Container(
               margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
-              child: TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
-                  ),
-                  child: Text(buttonText,
-                      style: TextStyle(
-                          color: Colors.white60,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30)
-                  ),
-                  onPressed: () {
-                    buttonText = "What's Near Me?";
-                    _getCurrentLocation();
-                    _getLocationProximity();
-                  },
-
+              //color: Colors.red,
+              child: Text(titleString, style: TextStyle(
+                fontSize: 40.0,
+                fontWeight: FontWeight.bold,
+              ),
               ),
             ),
 
@@ -255,6 +262,8 @@ class _HomePageState extends State<HomePage> {
     Record location = findLocation(latNum, ltdNum);
 
     messageOutput = location.description;
+    imageLink = location.imageString;
+    titleString = location.title;
 
 
   }

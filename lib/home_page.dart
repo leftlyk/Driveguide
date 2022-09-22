@@ -99,8 +99,8 @@ class _HomePageState extends State<HomePage> {
 
     ///temp = Record(0,0, "string", "image")
 
-    temp = Record(-43.5242, 172.6011, "Cbhs Straven Block","Christchurch Boys' Straven"
-        "block is the home of language and digital technologies, as well as the senior"
+    temp = Record(-43.5242, 172.6011, "Cbhs Straven Block","Christchurch Boys' Straven "
+        "block is the home of language and digital technologies, as well as the senior "
         "management team.", "StravenBlockImg.jpeg");
     locationList.add(temp);
 
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
         "concealed.", "MainBuildingImg.jpeg");
     locationList.add(temp);
 
-    temp = Record(-43.5227, 172.6002, "Cbhs Shrine", "Erected in 1920, the shrine comemorates"
+    temp = Record(-43.5227, 172.6002, "Cbhs Shrine", "Erected in 1920, the shrine comemorates "
         "the CBHS Old Boys lost in World War One, forever remembering their service.", "ShrineImg.jpeg");
     locationList.add(temp);
 

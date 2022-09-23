@@ -142,14 +142,29 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
+      backgroundColor: Colors.white,
         title: Text('Driveguide',
             style: TextStyle(
             color: Colors.black87,
             fontWeight: FontWeight.bold,
             fontSize: 30)
         ),
-        backgroundColor: Colors.white,
-
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+          child: Center(
+          child: Text(
+              "LAT: ${lat} \n LONG: ${ltd}",
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13
+                )
+          ),
+          ),
+          ),
+      ],
       ),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -157,20 +172,8 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             Image.asset('assets/$imageLink' //imageLink
             ),
-            SizedBox(height: 20.0),
-        Container(
-          margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
-          child: Text(
-                "LAT: ${lat} \nLONG: ${ltd}",
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30)
-              ),
-        ),
 
             SizedBox(height: 20.0),
-
 
             Container(
               margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),

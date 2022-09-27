@@ -4,11 +4,11 @@ import 'dart:async';
 
 import 'package:geolocator/geolocator.dart';
 
-/// Determine the current position of the device.
-///
-/// When the location services are not enabled or permissions
-/// are denied the `Future` will return an error.
+
 Future<Position> _determinePosition() async {
+  /// Determine the current position of the device.
+  /// When the location services are not enabled or permissions
+  /// are denied the `Future` will return an error.
   bool serviceEnabled;
   LocationPermission permission;
 
@@ -44,6 +44,7 @@ Future<Position> _determinePosition() async {
   // When we reach here, permissions are granted and we can
   // continue accessing the position of the device.
   return await Geolocator.getCurrentPosition();
+  ///returns the current user position
 }
 
 class HomePage extends StatefulWidget {
@@ -52,6 +53,7 @@ class HomePage extends StatefulWidget {
 }
 
 class Record{
+  /// takes in user data and processes it to be added to the list
   double latitude = 0;
   double longitude = 0;
   String title = "No entry";
@@ -72,8 +74,9 @@ class _HomePageState extends State<HomePage> {
 
 
   List locationList = [];
+  ///list for storing records
 
-  double accuracyNum = 0.0005; ///50 metres
+  double accuracyNum = 0.0005; /// accuracy number, currently at 50 m
 
   /// decimal places  degrees	    distance
   ///       0	          1.0	       111 km
@@ -83,21 +86,25 @@ class _HomePageState extends State<HomePage> {
   ///       4	          0.0001	   11.1 m
   ///       5	          0.00001	   1.11 m
 
+  /// Variables for app on start
   Position? _currentPosition;
   String lat = "Press 'get location'", ltd = "Press 'get location'";
-  //String inputLat = "", inputLtd = "";
   String messageOutput = "";
   String titleString = "CBHS Tour";
   String buttonText = "Get Location";
   String imageLink = "StartingImg.jpg";
 
   void BuildRecords() {
-    //tempLocation.latitude = 50;
-    Record temp = Record(-43,272, "title", "Sample", "ShrineImg.jpeg");
-    locationList.add(temp);
+    ///making the records
+
     /// space for test records
 
-    ///temp = Record(0,0, "string", "image")
+    Record temp = Record(-43,272, "title", "Sample", "ShrineImg.jpeg");
+    locationList.add(temp);
+
+    /// end of space for test records
+
+    ///temp = Record(0,0, "title", "string", "image")
 
     temp = Record(-43.5242, 172.6011, "Cbhs Straven Block","Christchurch Boys' Straven "
         "block is the home of language and digital technologies, as well as the senior "
@@ -114,7 +121,6 @@ class _HomePageState extends State<HomePage> {
     locationList.add(temp);
 
 
-    /// end of space for test records
   }
 
   Record findLocation(double latNum, double ltdNum) {

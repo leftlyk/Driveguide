@@ -189,6 +189,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onPressed: () {
                   buttonText = "What's Near Me?";
+                  _determinePosition();
                   _getCurrentLocation();
                   _getLocationProximity();
                 },

@@ -102,7 +102,12 @@ class _HomePageState extends State<HomePage> {
     Record temp = Record(-43,272, "title", "Sample", "ShrineImg.jpeg");
     locationList.add(temp);
 
+    temp = Record(-43.5000, 172.5000, "title", "in a hole in the ground there lived", "ShrineImg.jpeg");
+    locationList.add(temp);
+
     /// end of space for test records
+
+
 
     ///temp = Record(0,0, "title", "string", "image")
 
@@ -129,7 +134,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Record findLocation(double latNum, double ltdNum) {
-      Record r = Record(0,0, "TITLE", "UNKNOWN", "");
+      Record r = Record(0,0, "No Location Found", "We couldn't find a "
+          "location here. Keep checking what's near!", "");
 
       /// Go through the list of records and find one that lat and long match
 
@@ -271,7 +277,7 @@ class _HomePageState extends State<HomePage> {
 
   _getLocationProximity() {
     var latNum = double.parse(lat), ltdNum = double.parse(ltd);
-    /// converts strings to floats and then rounds them to 4 dp
+    /// converts strings to floats
     //var userLat = double.parse(inputLat), userLtd = double.parse(inputLtd);
 
     Record location = findLocation(latNum, ltdNum);

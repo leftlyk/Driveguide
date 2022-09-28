@@ -108,16 +108,21 @@ class _HomePageState extends State<HomePage> {
 
     temp = Record(-43.5242, 172.6011, "Cbhs Straven Block","Christchurch Boys' Straven "
         "block is the home of language and digital technologies, as well as the senior "
-        "management team.", "StravenBlockImg.jpeg");
+        "management team. Whilst the main block is under construction, the Straven Block "
+        "serves as a semi-temporary classroom block at the forefront of the school.",
+        "StravenBlockImg.jpeg");
     locationList.add(temp);
 
     temp = Record(-43.5241, 172.6003, "Cbhs Main Building", "Looking ahead, you might miss the "
         "main building, which is currently under construction and its former glory partly "
-        "concealed.", "MainBuildingImg.jpeg");
+        "concealed. It's expected to finish construction next year, the process involving"
+        " removing the roof and strengthening the supports.", "MainBuildingImg.jpeg");
     locationList.add(temp);
 
     temp = Record(-43.5227, 172.6002, "Cbhs Shrine", "Erected in 1920, the shrine comemorates "
-        "the CBHS Old Boys lost in World War One, forever remembering their service.", "ShrineImg.jpeg");
+        "the CBHS Old Boys lost in World War One, forever remembering their service. "
+        " Each year the shrine is visited and wreaths are placed upon its steps for "
+        "the ANZAC service.", "ShrineImg.jpeg");
     locationList.add(temp);
 
 

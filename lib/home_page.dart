@@ -160,11 +160,17 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
       backgroundColor: Colors.white,
-        title: Text('Driveguide',
-            style: TextStyle(
-            color: Colors.black87,
-            fontWeight: FontWeight.bold,
-            fontSize: 30)
+        title:
+        RichText(
+          text: TextSpan(
+            text: 'Drive',
+            style: TextStyle(color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                fontSize: 30),
+            children: const <TextSpan>[
+              TextSpan(text: 'guide', style: TextStyle(color: Colors.orange)),
+            ],
+          ),
         ),
         actions: <Widget>[
           Padding(

@@ -156,8 +156,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
   BuildRecords();
-
+  ///runs build records class
     return Scaffold(
+      /// front end
       appBar: AppBar(
       backgroundColor: Colors.white,
         title:
@@ -190,15 +191,17 @@ class _HomePageState extends State<HomePage> {
       ],
       ),
       body: Column(
+        /// body widgets
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Image.asset('assets/$imageLink' //imageLink
             ),
-
+            ///image widget
             SizedBox(height: 20.0),
 
             Container(
+              /// button widget
               margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
               child: TextButton(
                 style: ButtonStyle(
@@ -212,6 +215,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onPressed: () {
                   buttonText = "What's Near Me?";
+                  /// button functions
                   _determinePosition();
                   _getCurrentLocation();
                   _getLocationProximity();
@@ -223,6 +227,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 20.0),
 
             Container(
+              /// title widget
               margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
               //color: Colors.red,
               child: Text(titleString, style: TextStyle(
@@ -235,6 +240,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 20.0),
 
             Expanded(
+              ///text widget (inside a scroll box)
               flex: 1,
               child: new SingleChildScrollView(
               scrollDirection: Axis.vertical,//.horizontal
@@ -253,6 +259,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   _getCurrentLocation() {
+    /// location getter algorithm
     Geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best, forceAndroidLocationManager: true)
         .then((Position position) {
@@ -264,14 +271,12 @@ class _HomePageState extends State<HomePage> {
         if(position == null) {
           lat = "UNKNOWN";
           ltd = "UNKNOWN";
-        //  print(_currentPosition.longitude.toString());
-        //  print(_currentPosition.latitude.toString());
+
         } else {
-          //lat = position.latitude.toString();
-          //ltd = position.longitude.toString();
 
           lat = position.latitude.toStringAsFixed(4);
           ltd = position.longitude.toStringAsFixed(4);
+          /// returns lat and long as strings
 
         }
 
@@ -282,15 +287,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   _getLocationProximity() {
+    /// gets location proximity to points of interest in locationList
     var latNum = double.parse(lat), ltdNum = double.parse(ltd);
     /// converts strings to floats
-    //var userLat = double.parse(inputLat), userLtd = double.parse(inputLtd);
 
     Record location = findLocation(latNum, ltdNum);
 
     messageOutput = location.description;
     imageLink = location.imageString;
     titleString = location.title;
+    /// outputs from function
 
 
   }

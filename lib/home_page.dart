@@ -12,12 +12,12 @@ Future<Position> _determinePosition() async {
   bool serviceEnabled;
   LocationPermission permission;
 
-  // Test if location services are enabled.
+  /// Test if location services are enabled.
   serviceEnabled = await Geolocator.isLocationServiceEnabled();
   if (!serviceEnabled) {
-    // Location services are not enabled don't continue
-    // accessing the position and request users of the
-    // App to enable the location services.
+    /// Location services are not enabled don't continue
+    /// accessing the position and request users of the
+    /// App to enable the location services.
     return Future.error('Location services are disabled.');
   }
 
@@ -25,26 +25,25 @@ Future<Position> _determinePosition() async {
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
+      /// Permissions are denied forever, handle appropriately.
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 
     if (permission == LocationPermission.denied) {
-      // Permissions are denied, next time you could try
-      // requesting permissions again (this is also where
-      // Android's shouldShowRequestPermissionRationale
-      // returned true. According to Android guidelines
-      // your App should show an explanatory UI now.
+      /// Permissions are denied, next time you could try
+      /// requesting permissions again (this is also where
+      /// Android's shouldShowRequestPermissionRationale
+      /// returned true)
       return Future.error(
           'Location permissions are denied');
     }
   }
 
-  // When we reach here, permissions are granted and we can
-  // continue accessing the position of the device.
+  /// When we reach here, permissions are granted and we can
+  /// continue accessing the position of the device.
   return await Geolocator.getCurrentPosition();
-  ///returns the current user position
+  /// returns the current user position
 }
 
 class HomePage extends StatefulWidget {
@@ -61,6 +60,8 @@ class Record{
   String imageString = "'PC018007.jpg'";
 
   Record(double l,double t, String te, String d, String i) {
+    /// defining the order of class variables to be
+    /// inputted into the records
     latitude = l;
     longitude = t;
     title = te;
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> {
 
 
 
-    ///temp = Record(0,0, "title", "string", "image")
+    ///temp = Record(lat, long, "title", "string", "image")
 
     temp = Record(-43.5242, 172.6011, "Cbhs Straven Block","Christchurch Boys' Straven "
         "block is the home of language and digital technologies, as well as the senior "
@@ -138,12 +139,16 @@ class _HomePageState extends State<HomePage> {
           "location here. Keep checking what's near!", "");
 
       /// Go through the list of records and find one that lat and long match
+      /// For a match, the lat and long must both be within +/- accuracynum of
+      /// the recorded location.
 
       for (Record value in locationList) {
         if((latNum >= (value.latitude - accuracyNum) && latNum <= (value.latitude + accuracyNum))
             && (ltdNum >= (value.longitude - accuracyNum) && ltdNum <= (value.longitude + accuracyNum))
         ) {
           return value;
+
+          /// returns the entire locationList entry if match is found.
 
         }
 
@@ -156,9 +161,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
   BuildRecords();
-  ///runs build records class
+  /// runs buildrecords
+
     return Scaffold(
-      /// front end
+      /// front end widgetry
       appBar: AppBar(
       backgroundColor: Colors.white,
         title:
@@ -191,17 +197,18 @@ class _HomePageState extends State<HomePage> {
       ],
       ),
       body: Column(
-        /// body widgets
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Image.asset('assets/$imageLink' //imageLink
             ),
-            ///image widget
+            /// images are formatted so that they can be used in the
+            /// image.asset widget on the home page
+
             SizedBox(height: 20.0),
 
             Container(
-              /// button widget
+              /// function button
               margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
               child: TextButton(
                 style: ButtonStyle(
@@ -215,10 +222,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onPressed: () {
                   buttonText = "What's Near Me?";
-                  /// button functions
                   _determinePosition();
+                  /// checks permissions
                   _getCurrentLocation();
+                  /// gets the current user lat and long
                   _getLocationProximity();
+                  /// compares these with locationList entries
                 },
 
               ),
@@ -227,7 +236,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 20.0),
 
             Container(
-              /// title widget
+              /// Title text
               margin: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
               //color: Colors.red,
               child: Text(titleString, style: TextStyle(
@@ -240,7 +249,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 20.0),
 
             Expanded(
-              ///text widget (inside a scroll box)
+              /// Scrollable text box
               flex: 1,
               child: new SingleChildScrollView(
               scrollDirection: Axis.vertical,//.horizontal
@@ -259,7 +268,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   _getCurrentLocation() {
-    /// location getter algorithm
+    /// Gets the user's current latitude and longitude
     Geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best, forceAndroidLocationManager: true)
         .then((Position position) {
@@ -273,6 +282,7 @@ class _HomePageState extends State<HomePage> {
           ltd = "UNKNOWN";
 
         } else {
+
 
           lat = position.latitude.toStringAsFixed(4);
           ltd = position.longitude.toStringAsFixed(4);
@@ -290,6 +300,7 @@ class _HomePageState extends State<HomePage> {
     /// gets location proximity to points of interest in locationList
     var latNum = double.parse(lat), ltdNum = double.parse(ltd);
     /// converts strings to floats
+    //var userLat = double.parse(inputLat), userLtd = double.parse(inputLtd);
 
     Record location = findLocation(latNum, ltdNum);
 

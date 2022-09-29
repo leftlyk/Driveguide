@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
     Record temp = Record(-43,272, "title", "Sample", "ShrineImg.jpeg");
     locationList.add(temp);
 
-    temp = Record(-43.5000, 172.5000, "title", "in a hole in the ground there lived", "ShrineImg.jpeg");
+    temp = Record(-43.5232, 172.5983, "title", "in a hole in the ground there lived", "StartingImg.jpg");
     locationList.add(temp);
 
     /// end of space for test records
@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
 
   Record findLocation(double latNum, double ltdNum) {
       Record r = Record(0,0, "No Location Found", "We couldn't find a "
-          "location here. Keep checking what's near!", "");
+          "location here. Keep checking what's near!", "LocationNotFound.png");
 
       /// Go through the list of records and find one that lat and long match
       /// For a match, the lat and long must both be within +/- accuracynum of

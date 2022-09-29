@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
-//import 'homePageWireframe.dart';
 import 'dart:async';
 import 'dart:io';
+
+/// main file that runs the pages
 
 void main() {
   runApp(MyApp());
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Geolocator Demo',
       home: HomePage(),
+      /// runs homepage.dart
     );
   }
 }

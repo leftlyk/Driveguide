@@ -169,6 +169,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
         title:
         RichText(
+          ///appbar widget
           text: TextSpan(
             text: 'Drive',
             style: TextStyle(color: Colors.black87,
@@ -181,6 +182,7 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: <Widget>[
           Padding(
+            /// latitude and longitude strings
             padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
           child: Center(
           child: Text(
@@ -197,6 +199,7 @@ class _HomePageState extends State<HomePage> {
       ],
       ),
       body: Column(
+        /// body widgetry
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -282,6 +285,7 @@ class _HomePageState extends State<HomePage> {
           ltd = "UNKNOWN";
 
         } else {
+          /// if position != null
 
 
           lat = position.latitude.toStringAsFixed(4);
@@ -292,6 +296,7 @@ class _HomePageState extends State<HomePage> {
 
       });
     }).catchError((e) {
+      /// catches and prints errors
       print(e);
     });
   }
@@ -300,7 +305,6 @@ class _HomePageState extends State<HomePage> {
     /// gets location proximity to points of interest in locationList
     var latNum = double.parse(lat), ltdNum = double.parse(ltd);
     /// converts strings to floats
-    //var userLat = double.parse(inputLat), userLtd = double.parse(inputLtd);
 
     Record location = findLocation(latNum, ltdNum);
 
